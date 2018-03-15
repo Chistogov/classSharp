@@ -10,5 +10,6 @@ namespace Classificator
     class StaticInfo
     {
         public static User user { get; set; }
+        public static String root_folder = "";
     }
 }

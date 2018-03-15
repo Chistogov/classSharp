@@ -30,3 +30,4 @@ D:\CSharp projects\classificator\Classificator\obj\Debug\Classificator.LoginForm
 D:\CSharp projects\classificator\Classificator\obj\Debug\Classificator.SecondForm.resources
 D:\CSharp projects\classificator\Classificator\obj\Debug\Classificator.QueriesForm.resources
 D:\CSharp projects\classificator\Classificator\obj\Debug\Classificator.ReportForm.resources
+D:\CSharp projects\classificator\Classificator\obj\Debug\Classificator.LoadPics.resources

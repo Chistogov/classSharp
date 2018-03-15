@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,13 +18,15 @@ namespace Classificator
         public SecondForm()
         {
             InitializeComponent();
-            
+            pics = db.Pictures.ToList();
+            recognized_= db.Recognized_.ToList();
         }
         List<String> fileName_old = new List<String>();
         List<String> filesNames = new List<String>();
         ClassContext db = new ClassContext();
+        List<Picture> pics = new List<Picture>();
+        List<Recognized> recognized_ = new List<Recognized>();
         Picture current_picture;
-        string root_folder = "";
         private void запросToolStripMenuItem_Click(object sender, EventArgs e)
         {
             QueriesForm form = new QueriesForm();
@@ -44,10 +47,10 @@ namespace Classificator
             }
             fileName_old = new List<String>();
             filesNames = new List<String>();
-            List<Picture> pics = db.Pictures.ToList();
             List<User> user = db.Users.ToList();
-            setRootFolder();
-            var groups = db.Recognized_.ToList().Where(p => QueryMap.symptoms.Contains(p.Symptom.Symptom_name));
+            if (StaticInfo.root_folder == "")
+                setRootFolder();
+            var groups = recognized_.Where(p => QueryMap.symptoms.Contains(p.Symptom.Symptom_name));
             if (QueryMap.use_date)
                 groups = groups.Where(p => p.Date == QueryMap.date);
             if (QueryMap.user != null)
@@ -99,31 +102,30 @@ namespace Classificator
             note = "";
             try
             {
-                if (root_folder == "")
+                if (StaticInfo.root_folder == "")
                     setRootFolder();
-                List<Picture> pics = db.Pictures.ToList();
-                
+               
                 current_picture = pics.Where(p => !fileName_old.Contains(p.Pic_name) &&
                                             filesNames.Contains(p.Pic_name)).FirstOrDefault();
-                var symptoms = db.Recognized_.ToList().Where(p => p.Picture == current_picture).GroupBy(p => p.Symptom).ToList();
-                List<String> symptomz = new List<string>();
-                foreach (var group in symptoms)
+                var symptomsz = recognized_.Where(p => p.Picture == current_picture).GroupBy(p => p.Symptom).ToList();
+                List<String> symptoms = new List<String>();
+                foreach (var group in symptomsz)
                 {
                     foreach (var item in group)
                     {
-                        if (!symptomz.Contains(item.Symptom.Symptom_name))
+                        if (!symptoms.Contains(item.Symptom.Symptom_name))
                         {
-                            symptomz.Add(item.Symptom.Symptom_name);
+                            symptoms.Add(item.Symptom.Symptom_name);
                         }
                         note += item.Symptom.Symptom_name + "("+item.User.User_name+ " - " + item.Date + ")" + "\n";
                     }
-                }
+                }                
                 var controls = groupBox1.Controls;
                 foreach (var control in controls)
                 {
                     if (control is CheckBox)
                     {                       
-                        if (symptomz.Contains((control as CheckBox).Text))
+                        if (symptoms.Contains((control as CheckBox).Text))
                         {
                             (control as CheckBox).Checked = true;
                         }
@@ -133,10 +135,17 @@ namespace Classificator
                         }                       
                     }
                 }
+                if (checkBox1.Checked)
+                    if (!QueryMap.symptoms.All(item => symptoms.Contains(item)))
+                    {
+                        fileName_old.Add(current_picture.Pic_name);
+                        statusLabel.Text = fileName_old.Count() + "/" + filesNames.Count() + " / Предыдущий файл пропущен";
+                        getNextPic();
+                    }
                 fileName = current_picture.Pic_name;
-                if (File.Exists(root_folder + "/" + fileName))
+                if (File.Exists(StaticInfo.root_folder + "/" + fileName))
                 {
-                    pictureBox1.Image = Image.FromFile(root_folder + "/" + fileName);
+                    pictureBox1.Image = Image.FromFile(StaticInfo.root_folder + "/" + fileName);
                 }
                 else
                 {
@@ -147,7 +156,7 @@ namespace Classificator
             }
             catch
             {
-                if (current_picture != null && File.Exists(root_folder + "/" + fileName))
+                if (current_picture != null && File.Exists(StaticInfo.root_folder + "/" + fileName))
                 {
                     db.Pictures.Attach(current_picture);
                     db.SaveChanges();
@@ -156,8 +165,7 @@ namespace Classificator
                 }
                 else
                 {
-                    MessageBox.Show("Файл " + fileName + " не найден. \nВозможно в папке " + root_folder + " нет индексированных снимков");
-                    root_folder = "";
+                    statusLabel.Text = fileName_old.Count() + "/" + filesNames.Count() + " / Предыдущий файл " + fileName + " не был найден!";
                 }
             }
         }
@@ -166,7 +174,7 @@ namespace Classificator
             FolderBrowserDialog FBD = new FolderBrowserDialog();
             if (FBD.ShowDialog() == DialogResult.OK)
             {
-                root_folder = FBD.SelectedPath;
+                StaticInfo.root_folder = FBD.SelectedPath;
             }
         }
 

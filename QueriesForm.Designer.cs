@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBoxNotInUse = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.Panel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -36,7 +37,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox1 = new System.Windows.Forms.Panel();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.groupBoxNotInUse.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -49,10 +50,19 @@
             this.groupBoxNotInUse.Controls.Add(this.groupBox1);
             this.groupBoxNotInUse.Location = new System.Drawing.Point(12, 12);
             this.groupBoxNotInUse.Name = "groupBoxNotInUse";
-            this.groupBoxNotInUse.Size = new System.Drawing.Size(467, 413);
+            this.groupBoxNotInUse.Size = new System.Drawing.Size(467, 388);
             this.groupBoxNotInUse.TabIndex = 6;
             this.groupBoxNotInUse.TabStop = false;
             this.groupBoxNotInUse.Text = "Признаки";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.AutoScroll = true;
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(3, 16);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(461, 369);
+            this.groupBox1.TabIndex = 1;
             // 
             // comboBox1
             // 
@@ -130,20 +140,23 @@
             this.statusLabel.Size = new System.Drawing.Size(45, 17);
             this.statusLabel.Text = "Готово";
             // 
-            // groupBox1
+            // checkBox3
             // 
-            this.groupBox1.AutoScroll = true;
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 16);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(461, 394);
-            this.groupBox1.TabIndex = 1;
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(15, 403);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(96, 17);
+            this.checkBox3.TabIndex = 13;
+            this.checkBox3.Text = "Все признаки";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // QueriesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(652, 450);
+            this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dateTimePicker1);
@@ -173,5 +186,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.Panel groupBox1;
+        private System.Windows.Forms.CheckBox checkBox3;
     }
 }

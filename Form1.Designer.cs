@@ -36,8 +36,12 @@
             this.приступитьКРазметкеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.повторнаяРазметкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.информацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.количествоСнимковПоКатегориямToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.служебныеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выгрузкаСнимковToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBoxNotInUse = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
@@ -47,8 +51,7 @@
             this.checkBoxSkipped = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox1 = new System.Windows.Forms.Panel();
-            this.количествоСнимковПоКатегориямToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.указатьКорневойКаталогToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxNotInUse.SuspendLayout();
@@ -61,7 +64,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.индексацияToolStripMenuItem,
             this.разметкаToolStripMenuItem,
-            this.информацияToolStripMenuItem});
+            this.информацияToolStripMenuItem,
+            this.служебныеToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(848, 24);
@@ -71,7 +75,8 @@
             // индексацияToolStripMenuItem
             // 
             this.индексацияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.начатьИндексациюСнимковToolStripMenuItem});
+            this.начатьИндексациюСнимковToolStripMenuItem,
+            this.указатьКорневойКаталогToolStripMenuItem});
             this.индексацияToolStripMenuItem.Name = "индексацияToolStripMenuItem";
             this.индексацияToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
             this.индексацияToolStripMenuItem.Text = "Индексация";
@@ -122,6 +127,28 @@
             this.информацияToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
             this.информацияToolStripMenuItem.Text = "Информация";
             // 
+            // количествоСнимковПоКатегориямToolStripMenuItem
+            // 
+            this.количествоСнимковПоКатегориямToolStripMenuItem.Name = "количествоСнимковПоКатегориямToolStripMenuItem";
+            this.количествоСнимковПоКатегориямToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
+            this.количествоСнимковПоКатегориямToolStripMenuItem.Text = "Количество снимков по категориям";
+            this.количествоСнимковПоКатегориямToolStripMenuItem.Click += new System.EventHandler(this.количествоСнимковПоКатегориямToolStripMenuItem_Click);
+            // 
+            // служебныеToolStripMenuItem
+            // 
+            this.служебныеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.выгрузкаСнимковToolStripMenuItem});
+            this.служебныеToolStripMenuItem.Name = "служебныеToolStripMenuItem";
+            this.служебныеToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+            this.служебныеToolStripMenuItem.Text = "Служебные";
+            // 
+            // выгрузкаСнимковToolStripMenuItem
+            // 
+            this.выгрузкаСнимковToolStripMenuItem.Name = "выгрузкаСнимковToolStripMenuItem";
+            this.выгрузкаСнимковToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.выгрузкаСнимковToolStripMenuItem.Text = "Выгрузка снимков";
+            this.выгрузкаСнимковToolStripMenuItem.Click += new System.EventHandler(this.выгрузкаСнимковToolStripMenuItem_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(12, 27);
@@ -143,6 +170,15 @@
             this.groupBoxNotInUse.TabIndex = 2;
             this.groupBoxNotInUse.TabStop = false;
             this.groupBoxNotInUse.Text = "Признаки";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.AutoScroll = true;
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(3, 16);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(383, 250);
+            this.groupBox1.TabIndex = 1;
             // 
             // button1
             // 
@@ -224,21 +260,12 @@
             this.statusLabel.Size = new System.Drawing.Size(24, 17);
             this.statusLabel.Text = "0/0";
             // 
-            // groupBox1
+            // указатьКорневойКаталогToolStripMenuItem
             // 
-            this.groupBox1.AutoScroll = true;
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 16);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(383, 250);
-            this.groupBox1.TabIndex = 1;
-            // 
-            // количествоСнимковПоКатегориямToolStripMenuItem
-            // 
-            this.количествоСнимковПоКатегориямToolStripMenuItem.Name = "количествоСнимковПоКатегориямToolStripMenuItem";
-            this.количествоСнимковПоКатегориямToolStripMenuItem.Size = new System.Drawing.Size(274, 22);
-            this.количествоСнимковПоКатегориямToolStripMenuItem.Text = "Количество снимков по категориям";
-            this.количествоСнимковПоКатегориямToolStripMenuItem.Click += new System.EventHandler(this.количествоСнимковПоКатегориямToolStripMenuItem_Click);
+            this.указатьКорневойКаталогToolStripMenuItem.Name = "указатьКорневойКаталогToolStripMenuItem";
+            this.указатьКорневойКаталогToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.указатьКорневойКаталогToolStripMenuItem.Text = "Указать корневой каталог";
+            this.указатьКорневойКаталогToolStripMenuItem.Click += new System.EventHandler(this.указатьКорневойКаталогToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -293,6 +320,9 @@
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.Panel groupBox1;
         private System.Windows.Forms.ToolStripMenuItem количествоСнимковПоКатегориямToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem служебныеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem выгрузкаСнимковToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem указатьКорневойКаталогToolStripMenuItem;
     }
 }
 

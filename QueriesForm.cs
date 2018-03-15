@@ -109,5 +109,21 @@ namespace Classificator
                 dateTimePicker1.Enabled = false;
             }
         }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            //CheckBoxes
+            var controls = groupBox1.Controls;
+            foreach (var control in controls)
+            {
+                if (control is CheckBox)
+                {
+                    if (checkBox3.Checked == true)
+                        (control as CheckBox).Checked = true;
+                    else
+                        (control as CheckBox).Checked = false;
+                }
+            }
+        }
     }
 }

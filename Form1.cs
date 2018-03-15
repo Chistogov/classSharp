@@ -19,7 +19,6 @@ namespace Classificator
         }
         ClassContext db = new ClassContext();
         Picture current_picture;
-        string root_folder = "";
         private void Form1_Load(object sender, EventArgs e)
         {
             refreshTags();
@@ -104,24 +103,25 @@ namespace Classificator
 
         private void начатьИндексациюСнимковToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setRootFolder();
+            if (StaticInfo.root_folder == "")
+                setRootFolder();
             indexing();
             getNextPic();
         }
 
         private void приступитьКРазметкеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setRootFolder();
+            if (StaticInfo.root_folder == "")
+                setRootFolder();
             getNextPic();
         }
 
         private void indexing()
         {
-            if (root_folder == "")
+            if (StaticInfo.root_folder == "")
                 setRootFolder();
-            DirectoryInfo d = new DirectoryInfo(root_folder);
+            DirectoryInfo d = new DirectoryInfo(StaticInfo.root_folder);
             FileInfo[] Files = d.GetFiles("*.jpg"); 
-            string str = "";
             List<Picture> pics = db.Pictures.ToList();
             foreach (FileInfo file in Files)
             {
@@ -131,7 +131,7 @@ namespace Classificator
                     pic.Pic_name = file.Name;
                     pic.Date = DateTime.Now;
                     pic.Recognized = false;
-                    //pic.Hash = getMD5(root_folder + "/" + file.Name);
+                    //pic.Hash = getMD5(StaticInfo.root_folder + "/" + file.Name);
                     db.Pictures.Add(pic);
                     db.SaveChanges();
                 }                
@@ -143,7 +143,7 @@ namespace Classificator
             string fileName = "";
             try
             {
-                if (root_folder == "")
+                if (StaticInfo.root_folder == "")
                     setRootFolder();
                 List<Picture> pics = db.Pictures.ToList();
                 if(checkBoxSkipped.Checked)
@@ -151,9 +151,9 @@ namespace Classificator
                 else
                     current_picture = pics.Where(p => p.Recognized == false && p.Skipped == false).FirstOrDefault();
                 fileName = current_picture.Pic_name;
-                if (File.Exists(root_folder + "/" + fileName))
+                if (File.Exists(StaticInfo.root_folder + "/" + fileName))
                 {
-                    pictureBox1.Image = Image.FromFile(root_folder + "/" + fileName);
+                    pictureBox1.Image = Image.FromFile(StaticInfo.root_folder + "/" + fileName);
                     updateStatus("");
                 }
                 else
@@ -166,7 +166,7 @@ namespace Classificator
             }
             catch
             {
-                if (current_picture != null && File.Exists(root_folder + "/" + fileName))
+                if (current_picture != null && File.Exists(StaticInfo.root_folder + "/" + fileName))
                 {
                     db.Pictures.Attach(current_picture);
                     db.SaveChanges();
@@ -175,8 +175,7 @@ namespace Classificator
                 }
                 else
                 {
-                    MessageBox.Show("Файл " + fileName + " не найден. \nВозможно в папке " + root_folder + " нет индексированных снимков");
-                    root_folder = "";
+                    MessageBox.Show("Файл " + fileName + " не найден. \nВозможно в папке " + StaticInfo.root_folder + " нет индексированных снимков");
                 }
             }
         }
@@ -186,7 +185,7 @@ namespace Classificator
             FolderBrowserDialog FBD = new FolderBrowserDialog();
             if (FBD.ShowDialog() == DialogResult.OK)
             {
-                root_folder = FBD.SelectedPath;
+                StaticInfo.root_folder = FBD.SelectedPath;
             }
         }
 
@@ -234,6 +233,17 @@ namespace Classificator
         {
             ReportForm form = new ReportForm();
             form.Show();
+        }
+
+        private void выгрузкаСнимковToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadPics form = new LoadPics();
+            form.Show();
+        }
+
+        private void указатьКорневойКаталогToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+             setRootFolder();
         }
     }
 }
