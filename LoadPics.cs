@@ -138,11 +138,13 @@ namespace Classificator
             setFolderTo();
             foreach (Symptom symptom in db.Symptoms.ToList())
             {
-                Directory.CreateDirectory(folder_to + "\\" + symptom.Symptom_name);
+                if(!Directory.Exists(folder_to + "\\" + symptom.Symptom_name))
+                    Directory.CreateDirectory(folder_to + "\\" + symptom.Symptom_name);
                 var rec = groups.Where(p => p.symp_id == symptom.Id);
                 foreach (Recognized recognized in rec)
                 {                    
-                    File.Copy(StaticInfo.root_folder + "\\" + recognized.Picture.Pic_name, folder_to + "\\" + symptom.Symptom_name + "\\" + recognized.Picture.Pic_name);
+                    if(!File.Exists(folder_to + "\\" + symptom.Symptom_name + "\\" + recognized.Picture.Pic_name))
+                        File.Copy(StaticInfo.root_folder + "\\" + recognized.Picture.Pic_name, folder_to + "\\" + symptom.Symptom_name + "\\" + recognized.Picture.Pic_name);
                 }
             }
             MessageBox.Show("Готово");
