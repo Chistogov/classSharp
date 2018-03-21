@@ -126,6 +126,7 @@
             // 
             // checkBox3
             // 
+            this.checkBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox3.AutoSize = true;
             this.checkBox3.Location = new System.Drawing.Point(221, 342);
             this.checkBox3.Name = "checkBox3";
